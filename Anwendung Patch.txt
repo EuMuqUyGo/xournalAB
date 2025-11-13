@@ -1,0 +1,12 @@
+Anwendung des Patches
+
+Speichere die Datei als desktop_benutzer_locale_global.patch im Root deines Repository.
+
+Wende den Patch an:
+
+git apply desktop_benutzer_locale_global.patch
+
+
+Kompiliere dein Projekt wie gewohnt mit MinGW:
+
+mingw32-make

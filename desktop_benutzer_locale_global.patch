@@ -1,0 +1,48 @@
+*** Add new file src/util/LocaleOverride.h
++#pragma once
++#include <cstdlib>
++#include <string>
++
++class ScopedLocaleOverride {
++private:
++    std::string oldLang;
++    bool hadOldLang = false;
++
++public:
++    ScopedLocaleOverride(const char* newLang = "en_US.UTF-8") {
++        const char* lang = getenv("LANG");
++        if (lang != nullptr) {
++            oldLang = lang;
++            hadOldLang = true;
++        }
++        setenv("LANG", newLang, 1);
++
++        // Persönlicher Ordner -> Benutzer
++        const char* home = getenv("USERPROFILE"); // Windows Pfad
++        if(home) {
++            setenv("XDG_PERSONAL_DIR", home, 1);
++
++            // Desktop -> Desktop
++            std::string desktop = std::string(home) + "\\Desktop";
++            setenv("XDG_DESKTOP_DIR", desktop.c_str(), 1);
++        }
++    }
++
++    ~ScopedLocaleOverride() {
++        if (hadOldLang) {
++            setenv("LANG", oldLang.c_str(), 1);
++        } else {
++            unsetenv("LANG");
++        }
++        unsetenv("XDG_PERSONAL_DIR");
++        unsetenv("XDG_DESKTOP_DIR");
++    }
++};
++
++// Globale Instanz für alle Datei-Dialoge
++inline ScopedLocaleOverride g_DesktopLocaleOverride;
+*** Update file src/main.cpp
+@@
++#include "xoj/util/LocaleOverride.h"
++// Die globale Instanz g_DesktopLocaleOverride sorgt dafür,
++// dass GTK-Dateidialoge "Desktop" und "Benutzer" korrekt anzeigen.
