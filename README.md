@@ -51,11 +51,10 @@ Xournal++ features:
 
 ## Mobile & web app
 
-From mid 2020 to May 2021, a Flutter-written mobile app for **Android**, **Chrome OS** and **iOS** (unreleased) and the **web**
+From mid 2020 to May 2021, a Flutter-written mobile app for **Android** and **iOS** (unreleased) and the **web**
 has been developed, which supports the file format and most of the basic features of Xournal++.
 Unfortunately development has stalled and we have lost contact to the (single) developer. The web app is no longer available.
-You can still check out the [separate repository on GitLab](https://gitlab.com/TheOneWithTheBraid/xournalpp_mobile) or
-[Get it on Google Play](https://play.google.com/store/apps/details?id=online.xournal.mobile)
+You can still check out the [separate repository on GitLab](https://gitlab.com/TheOneWithTheBraid/xournalpp_mobile).
 
 
 <table>
@@ -156,6 +155,9 @@ includes the very latest features and bug fixes.
 
 With the help of the community, Xournal++ is also available on official repositories
 of some popular GNU/Linux distros and platforms.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/xournalpp.svg?columns=5)](https://repology.org/project/xournalpp/versions)
+
 
 ### Debian
 
@@ -299,6 +301,12 @@ page](https://github.com/xournalpp/xournalpp/releases).
 
 Mac OS X releases are provided on the [Releases
 page](https://github.com/xournalpp/xournalpp/releases).
+However, the app will refuse to run due to Apple policies (see https://github.com/xournalpp/xournalpp/issues/6185). Run the following commands one by one to make it work:
+```
+xattr -c /Applications/Xournal++.app
+codesign --force --deep --sign - /Applications/Xournal++.app
+```
+And for those who type it out, don't forget to type the hyphen (`-`) between `--sign` and `/Applications/Xournal++.app`
 
 **Notes:**
 
